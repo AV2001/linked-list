@@ -118,7 +118,25 @@ class LinkedList {
 
     /** setAt(idx, val): set val at idx to val */
 
-    setAt(idx, val) {}
+    setAt(idx, val) {
+        if (!this.head) {
+            throw new Error('List is empty.');
+        }
+
+        if (idx < 0 || idx >= this.length) {
+            throw new Error('Index out of bounds.');
+        }
+
+        let currentNode = this.head;
+        let count = 0;
+        while (currentNode) {
+            if (count === idx) {
+                currentNode.val = val;
+            }
+            currentNode = currentNode.next;
+            count++;
+        }
+    }
 
     /** insertAt(idx, val): add node w/val before idx. */
 
