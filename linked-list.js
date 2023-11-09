@@ -102,7 +102,19 @@ class LinkedList {
 
     /** getAt(idx): get val at idx. */
 
-    getAt(idx) {}
+    getAt(idx) {
+        let currentNode = this.head;
+        let count = 0;
+        while (currentNode) {
+            if (count === idx) {
+                return currentNode.val;
+            }
+            currentNode = currentNode.next;
+            count++;
+        }
+
+        return null;
+    }
 
     /** setAt(idx, val): set val at idx to val */
 
