@@ -36,7 +36,20 @@ class LinkedList {
 
     /** unshift(val): add new value to start of list. */
 
-    unshift(val) {}
+    unshift(val) {
+        let currentHead = this.head;
+        let newHead = new Node(val);
+
+        if (!currentHead) {
+            this.head = newHead;
+            this.tail = newHead;
+        } else {
+            newHead.next = currentHead;
+            this.head = newHead;
+        }
+
+        this.length++;
+    }
 
     /** pop(): return & remove last item. */
 
@@ -68,24 +81,3 @@ class LinkedList {
 }
 
 module.exports = LinkedList;
-
-const list = new LinkedList();
-
-list.push(5);
-console.log(list.length);
-console.log(list.head.val);
-console.log(list.tail.val);
-console.log('');
-
-list.push(10);
-console.log(list.length);
-console.log(list.head.val);
-console.log(list.head.next.val);
-console.log(list.tail.val);
-console.log('');
-
-list.push(15);
-console.log(list.length);
-console.log(list.head.val);
-console.log(list.head.next.next.val);
-console.log(list.tail.val);
