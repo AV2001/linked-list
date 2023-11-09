@@ -53,7 +53,30 @@ class LinkedList {
 
     /** pop(): return & remove last item. */
 
-    pop() {}
+    pop() {
+        let currentNode = this.head;
+        let previousNode = null;
+
+        if (!currentNode) {
+            return null;
+        } else if (this.head.next === null) {
+            const value = this.head.val;
+            this.head = null;
+            this.tail = null;
+            this.length--;
+            return value;
+        }
+
+        while (currentNode.next) {
+            previousNode = currentNode;
+            currentNode = currentNode.next;
+        }
+
+        previousNode.next = null;
+        this.tail = previousNode;
+        this.length--;
+        return currentNode.val;
+    }
 
     /** shift(): return & remove first item. */
 
