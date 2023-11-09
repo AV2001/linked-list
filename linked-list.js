@@ -80,7 +80,25 @@ class LinkedList {
 
     /** shift(): return & remove first item. */
 
-    shift() {}
+    shift() {
+        let currentHead = this.head;
+
+        if (!currentHead) {
+            return null;
+        } else if (this.head.next === null) {
+            const value = this.head.val;
+            this.head = null;
+            this.tail = null;
+            this.length--;
+            return value;
+        }
+
+        let newHead = currentHead.next;
+        const value = currentHead.val;
+        this.head = newHead;
+        this.length--;
+        return value;
+    }
 
     /** getAt(idx): get val at idx. */
 
