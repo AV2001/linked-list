@@ -180,7 +180,45 @@ class LinkedList {
 
     /** removeAt(idx): return & remove item at idx, */
 
-    removeAt(idx) {}
+    removeAt(idx) {
+        if (!this.head) {
+            throw new Error("Cannot remove from the list as it's empty.");
+        }
+
+        if (idx === 0) {
+            const value = this.head.val;
+            this.head = this.head.next;
+            if (this.head === null) {
+                this.tail = null;
+            }
+            this.length--;
+            return value;
+        }
+
+        if (idx < 0 || idx >= this.length) {
+            throw new Error('Index out of bounds.');
+        }
+
+        let currentNode = this.head;
+        let previousNode = null;
+        let count = 0;
+
+        while (currentNode) {
+            if (count === idx) {
+                const value = currentNode.val;
+                previousNode.next = currentNode.next;
+                // Update the tail to be the removed last node's previous node
+                if (idx === this.length - 1) {
+                    this.tail = previousNode;
+                }
+                this.length--;
+                return value;
+            }
+            previousNode = currentNode;
+            currentNode = currentNode.next;
+            count++;
+        }
+    }
 
     /** average(): return an average of all values in the list */
 
@@ -200,17 +238,3 @@ class LinkedList {
 }
 
 module.exports = LinkedList;
-
-const list = new LinkedList([5, 10, 15, 20]);
-
-list.insertAt(2, 12);
-console.log(list.length);
-console.log(list.head.val);
-console.log(list.head.next.val);
-console.log(list.head.next.next.val);
-console.log(list.head.next.next.next.val);
-console.log(list.head.next.next.next.next.val);
-
-list.insertAt(5, 25);
-console.log(list.head.next.next.next.next.next.val);
-console.log(list.tail);
