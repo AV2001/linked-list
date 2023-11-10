@@ -140,7 +140,43 @@ class LinkedList {
 
     /** insertAt(idx, val): add node w/val before idx. */
 
-    insertAt(idx, val) {}
+    insertAt(idx, val) {
+        const newNode = new Node(val);
+
+        if (!this.head) {
+            this.head = newNode;
+            this.tail = newNode;
+            this.length++;
+            return;
+        }
+
+        if (idx < 0 || idx > this.length) {
+            throw new Error('Index out of bounds.');
+        }
+
+        // Handling insertion at the end
+        if (idx === this.length) {
+            this.tail.next = newNode;
+            this.tail = newNode;
+            this.length++;
+            return;
+        }
+
+        let currentNode = this.head;
+        let previousNode = null;
+        let count = 0;
+        while (currentNode) {
+            if (count === idx) {
+                previousNode.next = newNode;
+                newNode.next = currentNode;
+                this.length++;
+                break;
+            }
+            previousNode = currentNode;
+            currentNode = currentNode.next;
+            count++;
+        }
+    }
 
     /** removeAt(idx): return & remove item at idx, */
 
@@ -164,3 +200,17 @@ class LinkedList {
 }
 
 module.exports = LinkedList;
+
+const list = new LinkedList([5, 10, 15, 20]);
+
+list.insertAt(2, 12);
+console.log(list.length);
+console.log(list.head.val);
+console.log(list.head.next.val);
+console.log(list.head.next.next.val);
+console.log(list.head.next.next.next.val);
+console.log(list.head.next.next.next.next.val);
+
+list.insertAt(5, 25);
+console.log(list.head.next.next.next.next.next.val);
+console.log(list.tail);
